@@ -1,0 +1,35 @@
+version: "3.9"
+
+services:
+  mongodb:
+    container_name: mongo
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodata:/data/db
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root 
+      - MONGO_INITDB_ROOT_PASSWORD=root      
+  golang:
+    build:
+      context: ./golang/development
+      dockerfile: Dockerfile
+    container_name: golang
+    command: sh
+    stdin_open: true
+    tty: true
+    # environment:
+    #   - MONGODB_URI=mongodb=srv://root:root
+    #   - MONGO_INITDB_ROOT_USERNAME=root 
+    #   - MONGO_INITDB_ROOT_PASSWORD=root   
+    ports:
+      - "8000:3000"
+    volumes:
+      - ./golang/source:/app
+    depends_on:
+      - mongodb
+
+volumes:
+  mongodata:
+    driver: local

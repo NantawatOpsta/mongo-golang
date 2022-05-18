@@ -19,10 +19,6 @@ services:
     command: sh
     stdin_open: true
     tty: true
-    # environment:
-    #   - MONGODB_URI=mongodb=srv://root:root
-    #   - MONGO_INITDB_ROOT_USERNAME=root 
-    #   - MONGO_INITDB_ROOT_PASSWORD=root   
     ports:
       - "8000:3000"
     volumes:
